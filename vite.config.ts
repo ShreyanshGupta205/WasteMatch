@@ -15,6 +15,20 @@ export default defineConfig({
     strictPort: true,
     host: true,
   },
+  build: {
+    outDir: 'dist',
+    sourcemap: false,
+    chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'react-router-dom'],
+          charts: ['recharts'],
+          animation: ['framer-motion', 'canvas-confetti'],
+        },
+      },
+    },
+  },
 });
 
 

@@ -1,0 +1,7 @@
+# Vercel deployment ignore rules
+node_modules
+server
+scripts
+.git
+.github
+*.log
