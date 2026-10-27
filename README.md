@@ -135,7 +135,22 @@ npm run build
 ```
 Builds cleanly with **0 TypeScript errors** using `tsc && vite build`.
 
-### 3. Run Backend REST API (Optional)
+### 3. Deploy to Vercel
+This repository includes a pre-configured `vercel.json` with SPA routing rewrites.
+
+**Option A: 1-Click via GitHub (Recommended)**
+1. Navigate to [vercel.com/new](https://vercel.com/new).
+2. Connect your GitHub account and select `ShreyanshGupta205/WasteMatch`.
+3. Keep default settings (`Framework Preset: Vite`, `Build Command: npm run build`, `Output Directory: dist`).
+4. Click **Deploy**.
+
+**Option B: Via Vercel CLI**
+```bash
+npx vercel login
+npx vercel --prod
+```
+
+### 4. Run Backend REST API (Optional)
 ```bash
 cd server
 npm install
