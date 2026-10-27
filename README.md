@@ -1,5 +1,10 @@
 # WasteMatch MVP — Industrial Symbiosis & Co-Processing Platform
 
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FShreyanshGupta205%2FWasteMatch)
+[![License: Proprietary](https://img.shields.io/badge/License-Proprietary-red.svg)](https://github.com/ShreyanshGupta205/WasteMatch)
+[![Framework: Vite + React](https://img.shields.io/badge/Framework-Vite%20%2B%20React-blue.svg)](https://vitejs.dev/)
+[![Compliance: Hazardous Waste Rules 2016](https://img.shields.io/badge/Compliance-CPCB%20%2F%20SPCB%202016-emerald.svg)](https://cpcb.nic.in/)
+
 > **AI-Powered Industrial Waste Matching Engine connecting waste generators with verified co-processors under Indian Environmental Regulations (Hazardous Waste Rules 2016).**
 
 WasteMatch enables small and mid-sized manufacturing facilities to convert hazardous waste disposal costs into secondary raw material revenue through AI chemical fingerprinting, match optimization, tripartite escrow, digital Form 10 manifests, and statutory diversion certificates.
