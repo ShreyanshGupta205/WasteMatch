@@ -241,7 +241,7 @@ export const SEED_USERS: Record<UserRole, UserSession> = {
     id: 'usr-admin-01',
     email: 'admin@wastematch.com',
     role: 'admin',
-    name: 'Antigravity Operations Admin',
+    name: 'Admin',
     businessName: 'WasteMatch Central Compliance Admin',
     verificationStatus: 'Verified',
   },

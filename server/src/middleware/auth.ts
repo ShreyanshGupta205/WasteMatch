@@ -51,7 +51,7 @@ export const DEMO_USERS: Record<string, AuthenticatedUser> = {
     id: 'usr-admin-01',
     email: 'admin@wastematch.com',
     role: 'admin',
-    name: 'Antigravity Operations Admin',
+    name: 'Admin',
     businessName: 'WasteMatch Central Compliance Operations',
   },
 };

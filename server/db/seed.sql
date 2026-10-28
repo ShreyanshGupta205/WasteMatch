@@ -3,7 +3,7 @@
 
 -- 1. USERS
 INSERT INTO users (id, email, password_hash, role, full_name, phone) VALUES
-('usr-admin-01', 'admin@wastematch.com', '$2a$10$wK1bJ9..mockhash..admin', 'admin', 'Antigravity Operations Admin', '+91 99999 00001'),
+('usr-admin-01', 'admin@wastematch.com', '$2a$10$wK1bJ9..mockhash..admin', 'admin', 'Admin', '+91 99999 00001'),
 ('usr-seller-01', 'seller@shreeganesh.com', '$2a$10$wK1bJ9..mockhash..seller1', 'seller', 'Rajesh Kumar', '+91 98110 44210'),
 ('usr-seller-02', 'seller@bharatpaper.com', '$2a$10$wK1bJ9..mockhash..seller2', 'seller', 'Harish Chandra', '+91 98220 55320'),
 ('usr-buyer-01', 'buyer@aravalicement.com', '$2a$10$wK1bJ9..mockhash..buyer1', 'buyer', 'Vikramaditya Rathore', '+91 98330 66430'),
