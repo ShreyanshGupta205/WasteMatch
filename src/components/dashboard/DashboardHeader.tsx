@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import {
   Building2,
@@ -14,11 +14,13 @@ import {
   X,
 } from 'lucide-react';
 import { useDashboardStore, UserRole, SEED_USERS } from '../../store/dashboardStore';
+import { GemmaSettingsModal } from '../GemmaSettingsModal';
 
 export const DashboardHeader: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { currentUser, switchRole, toggleMobileMenu, isMobileMenuOpen } = useDashboardStore();
+  const [isGemmaSettingsOpen, setIsGemmaSettingsOpen] = useState(false);
 
   const handleRoleSwitch = (newRole: UserRole) => {
     switchRole(newRole);
@@ -158,6 +160,18 @@ export const DashboardHeader: React.FC = () => {
           </div>
         )}
 
+        {/* Gemma 2 AI Engine Trigger */}
+        <button
+          type="button"
+          onClick={() => setIsGemmaSettingsOpen(true)}
+          className="hidden md:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-gradient-to-r from-purple-50 to-indigo-50 text-purple-700 border border-purple-200 hover:bg-purple-100 transition shadow-sm cursor-pointer"
+          title="Configure Gemma 2 AI Engine"
+        >
+          <span className="w-1.5 h-1.5 rounded-full bg-purple-600 animate-pulse" />
+          <Sparkles className="w-3 h-3 text-purple-600" />
+          <span>Gemma 2 AI</span>
+        </button>
+
         {/* User Info Avatar */}
         <Link
           to="/login"
@@ -189,6 +203,12 @@ export const DashboardHeader: React.FC = () => {
           </div>
         </Link>
       </div>
+
+      {/* Gemma 2 AI Engine Settings Modal */}
+      <GemmaSettingsModal
+        isOpen={isGemmaSettingsOpen}
+        onClose={() => setIsGemmaSettingsOpen(false)}
+      />
     </header>
   );
 };

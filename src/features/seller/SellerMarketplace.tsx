@@ -13,6 +13,7 @@ import {
   AlertCircle,
 } from 'lucide-react';
 import { useDashboardStore } from '../../store/dashboardStore';
+import { GemmaMatchExplainerModal } from '../../components/GemmaMatchExplainerModal';
 
 export const SellerMarketplace: React.FC = () => {
   const { offers, respondOffer, wasteStreams } = useDashboardStore();
@@ -20,6 +21,7 @@ export const SellerMarketplace: React.FC = () => {
   const [counterOfferId, setCounterOfferId] = useState<string | null>(null);
   const [counterPriceInput, setCounterPriceInput] = useState<string>('1400');
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [explainingOffer, setExplainingOffer] = useState<any | null>(null);
 
   const handleAction = (offerId: string, action: 'Accept' | 'Reject' | 'Counter') => {
     if (action === 'Counter') {
@@ -156,7 +158,17 @@ export const SellerMarketplace: React.FC = () => {
                   Co-processing kiln verifies Fe (11.85%) raw mix replacement under CPCB Guidelines.
                 </span>
 
-                <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => setExplainingOffer(offer)}
+                    className="px-3 py-2 rounded-xl text-xs font-bold text-purple-700 bg-purple-50 hover:bg-purple-100 border border-purple-200 transition-colors flex items-center gap-1.5 cursor-pointer"
+                    title="Explain match rationale with Gemma 2 AI"
+                  >
+                    <Sparkles className="w-3.5 h-3.5 text-purple-600" />
+                    <span>✨ Gemma 2 Insights</span>
+                  </button>
+
                   {!isAccepted && !isDeclined && (
                     <>
                       <button
@@ -221,6 +233,13 @@ export const SellerMarketplace: React.FC = () => {
           );
         })}
       </div>
+
+      {/* Gemma 2 Co-Processing Match Reasoner Modal */}
+      <GemmaMatchExplainerModal
+        isOpen={!!explainingOffer}
+        onClose={() => setExplainingOffer(null)}
+        offer={explainingOffer}
+      />
     </div>
   );
 };

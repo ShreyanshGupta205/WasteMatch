@@ -14,6 +14,8 @@ import {
   Send,
 } from 'lucide-react';
 import { useDashboardStore, WasteStreamItem } from '../../store/dashboardStore';
+import { GemmaExtractorModal } from '../../components/GemmaExtractorModal';
+import { ExtractedChemicalFingerprint } from '../../services/gemmaService';
 
 export const SellerStreams: React.FC = () => {
   const navigate = useNavigate();
@@ -26,6 +28,7 @@ export const SellerStreams: React.FC = () => {
   } = useDashboardStore();
 
   const [isCreating, setIsCreating] = useState(false);
+  const [isGemmaModalOpen, setIsGemmaModalOpen] = useState(false);
   const [streamName, setStreamName] = useState('');
   const [sourceProcess, setSourceProcess] = useState('');
   const [physicalForm, setPhysicalForm] = useState<'liquid' | 'solid' | 'sludge' | 'oily'>('liquid');
@@ -35,6 +38,17 @@ export const SellerStreams: React.FC = () => {
   const [hasReportChecked, setHasReportChecked] = useState(false);
 
   const [activeTab, setActiveTab] = useState<'all' | 'needsLab' | 'listed'>('all');
+
+  const handleApplyGemmaData = (data: ExtractedChemicalFingerprint) => {
+    setStreamName(data.streamName);
+    setSourceProcess(data.sourceProcess);
+    setPhysicalForm(data.physicalForm);
+    setQuantity(String(data.estimatedMonthlyQuantityTonnes));
+    setLocation(data.locationAddress);
+    setPincode(data.pincode);
+    setHasReportChecked(true);
+    setIsCreating(true);
+  };
 
   const needsLabStreams = wasteStreams.filter((s) => !s.hasLabReport || Object.values(s.confidenceScores).some((val) => val === 'Low'));
   const listedStreams = wasteStreams.filter((s) => s.status === 'Listed');
@@ -60,7 +74,6 @@ export const SellerStreams: React.FC = () => {
     setSourceProcess('');
   };
 
-
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -79,13 +92,27 @@ export const SellerStreams: React.FC = () => {
           </p>
         </div>
 
-        <button
-          onClick={() => setIsCreating(!isCreating)}
-          className="px-4 py-2 rounded-xl text-xs font-bold text-white bg-[#D1343A] hover:bg-[#A81818] transition-colors shadow-subtle flex items-center gap-1.5 cursor-pointer"
-        >
-          <Plus className="w-4 h-4" />
-          <span>{isCreating ? 'Cancel Creation' : 'Create New Waste Stream'}</span>
-        </button>
+        <div className="flex flex-wrap items-center gap-2">
+          {/* Gemma 2 AI Auto-Fill Button */}
+          <button
+            type="button"
+            onClick={() => setIsGemmaModalOpen(true)}
+            className="px-3.5 py-2 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 transition shadow-sm flex items-center gap-1.5 cursor-pointer active:scale-95"
+            title="Auto-extract chemical assay with Gemma 2 AI"
+          >
+            <Sparkles className="w-3.5 h-3.5 text-purple-200" />
+            <span>✨ Auto-Fill with Gemma AI</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setIsCreating(!isCreating)}
+            className="px-4 py-2 rounded-xl text-xs font-bold text-white bg-[#D1343A] hover:bg-[#A81818] transition-colors shadow-subtle flex items-center gap-1.5 cursor-pointer"
+          >
+            <Plus className="w-4 h-4" />
+            <span>{isCreating ? 'Cancel Creation' : 'Create New Waste Stream'}</span>
+          </button>
+        </div>
       </div>
 
       {/* New Stream Creation Drawer / Form */}
@@ -503,6 +530,13 @@ export const SellerStreams: React.FC = () => {
           );
         })}
       </div>
+
+      {/* Gemma 2 AI Assay Extractor Modal */}
+      <GemmaExtractorModal
+        isOpen={isGemmaModalOpen}
+        onClose={() => setIsGemmaModalOpen(false)}
+        onApply={handleApplyGemmaData}
+      />
     </div>
   );
 };

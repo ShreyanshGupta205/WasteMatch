@@ -12,6 +12,7 @@ import {
   Building2,
 } from 'lucide-react';
 import { useDashboardStore } from '../../store/dashboardStore';
+import { GemmaMatchExplainerModal } from '../../components/GemmaMatchExplainerModal';
 
 export const BuyerMatches: React.FC = () => {
   const [matchStatus, setMatchStatus] = useState<Record<string, string>>({
@@ -21,6 +22,7 @@ export const BuyerMatches: React.FC = () => {
   const [counterBoxId, setCounterBoxId] = useState<string | null>(null);
   const [counterVal, setCounterVal] = useState('1150');
   const [toast, setToast] = useState<string | null>(null);
+  const [explainingMatch, setExplainingMatch] = useState<any | null>(null);
 
   const incomingFeed = [
     {
@@ -186,7 +188,23 @@ export const BuyerMatches: React.FC = () => {
                 Estimated Inbound Freight (50% Milk-Run): ₹{(match.transportEstimate * 0.5).toLocaleString()}
               </span>
 
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() =>
+                    setExplainingMatch({
+                      wasteStreamName: match.materialName,
+                      buyerName: 'Aravali Cement Works AFR Kiln',
+                      quantityTonnes: match.quantityTonnes,
+                    })
+                  }
+                  className="px-3 py-2 rounded-xl text-xs font-bold text-purple-700 bg-purple-50 hover:bg-purple-100 border border-purple-200 transition-colors flex items-center gap-1.5 cursor-pointer"
+                  title="Explain co-processing compatibility with Gemma 2 AI"
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-purple-600" />
+                  <span>✨ Gemma 2 Insights</span>
+                </button>
+
                 <button
                   onClick={() => handleAction(match.id, 'Accept')}
                   className="px-4 py-2 rounded-xl text-xs font-bold text-white bg-[#2563EB] hover:bg-[#1d4ed8] transition-colors shadow-subtle flex items-center gap-1.5 cursor-pointer"
@@ -236,6 +254,13 @@ export const BuyerMatches: React.FC = () => {
           </div>
         ))}
       </div>
+
+      {/* Gemma 2 Co-Processing Match Reasoner Modal */}
+      <GemmaMatchExplainerModal
+        isOpen={!!explainingMatch}
+        onClose={() => setExplainingMatch(null)}
+        offer={explainingMatch}
+      />
     </div>
   );
 };
