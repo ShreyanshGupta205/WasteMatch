@@ -135,7 +135,7 @@ export const Navbar: React.FC = () => {
             to="/login"
             className="hidden sm:inline-flex px-3.5 py-2 rounded-xl text-xs font-semibold text-stone-700 hover:text-[#0B0F19] hover:bg-stone-100 border border-stone-200 transition"
           >
-            Demo Login
+            Login
           </Link>
 
           <Link
