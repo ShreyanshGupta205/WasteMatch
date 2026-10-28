@@ -71,10 +71,10 @@ export const SellerSidebar: React.FC = () => {
   ];
 
   return (
-    <aside className="w-[240px] shrink-0 bg-surface border-r border-[#E2E4DC] flex flex-col justify-between h-[calc(100vh-4rem)] sticky top-16 shadow-subtle z-20">
-      <div className="p-3.5 space-y-4 overflow-y-auto">
-        <div className="px-3 pb-1 text-[11px] font-bold uppercase tracking-wider text-[#64748B]">
-          SELLER CAPABILITIES
+    <aside className="w-[264px] shrink-0 bg-white border-r border-[#E2E4DC] flex flex-col justify-between h-[calc(100vh-4rem)] sticky top-16 shadow-subtle z-20">
+      <div className="p-3.5 space-y-3 overflow-y-auto">
+        <div className="px-3 pt-1 pb-0.5 flex items-center justify-between text-[11px] font-bold uppercase tracking-wider text-slate-400">
+          <span>Seller Capabilities</span>
         </div>
         <nav className="space-y-1">
           {navItems.map((item) => {
@@ -85,27 +85,29 @@ export const SellerSidebar: React.FC = () => {
                 to={item.path}
                 end={item.end}
                 className={({ isActive }) =>
-                  `flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-all group ${
+                  `flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold transition-all group ${
                     isActive
                       ? 'bg-[#FDF2F2] text-[#D1343A] shadow-sm font-bold border border-[#D1343A]/20'
-                      : 'text-[#1E293B] hover:text-[#0B0F19] hover:bg-surface-subtle'
+                      : 'text-slate-700 hover:text-[#0B0F19] hover:bg-slate-50'
                   }`
                 }
               >
                 {({ isActive }) => (
                   <>
-                    <div className="flex items-center gap-2.5">
+                    <div className="flex items-center gap-2.5 min-w-0 flex-1 mr-2">
                       <Icon
-                        className={`w-4 h-4 transition-colors ${
-                          isActive ? 'text-[#D1343A]' : 'text-[#64748B] group-hover:text-[#0B0F19]'
+                        className={`w-4 h-4 shrink-0 transition-colors ${
+                          isActive ? 'text-[#D1343A]' : 'text-slate-400 group-hover:text-slate-800'
                         }`}
                       />
                       <span className="truncate">{item.name}</span>
                     </div>
                     {item.badge && (
                       <span
-                        className={`text-[9px] font-mono font-bold px-1.5 py-0.5 rounded ${
-                          item.badgeColor || 'bg-surface-subtle text-[#64748B]'
+                        className={`inline-flex items-center gap-1.5 text-[10px] font-medium leading-none px-2 py-1 rounded-full whitespace-nowrap shrink-0 border transition-colors ${
+                          isActive
+                            ? 'bg-[#D1343A]/10 text-[#D1343A] border-[#D1343A]/20'
+                            : item.badgeColor || 'bg-slate-50 text-slate-500 border-slate-200/80'
                         }`}
                       >
                         {item.badge}
@@ -120,20 +122,24 @@ export const SellerSidebar: React.FC = () => {
       </div>
 
       {/* Bottom Facility SPCB Card */}
-      <div className="p-3 border-t border-[#E2E4DC] bg-surface-subtle/70">
-        <div className="p-3 rounded-xl bg-surface border border-[#E2E4DC] shadow-subtle">
-          <div className="flex items-center justify-between mb-1">
-            <span className="text-[10px] font-bold uppercase tracking-wider text-[#64748B]">
+      <div className="p-3 border-t border-[#E2E4DC] bg-slate-50/80">
+        <div className="p-3 rounded-xl bg-white border border-[#E2E4DC] shadow-sm">
+          <div className="flex items-center justify-between mb-1.5">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">
               SPCB AUTHORIZATION
             </span>
-            <span className="text-[9px] font-bold bg-[#DCFCE7] text-[#16A34A] px-1.5 py-0.2 rounded">
+            <span className="inline-flex items-center gap-1 text-[9px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/80 px-2 py-0.5 rounded-full">
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
+              </span>
               Active
             </span>
           </div>
-          <div className="text-xs font-mono font-bold text-[#0B0F19] truncate">
+          <div className="text-xs font-mono font-bold text-slate-900 truncate">
             {currentUser.spcbAuthNo || 'UPPCB/HW/GZB/2024/7741'}
           </div>
-          <div className="text-[10px] text-[#64748B] mt-1">
+          <div className="text-[10px] text-slate-500 mt-1">
             Plant #2 · Ghaziabad, UP
           </div>
         </div>
