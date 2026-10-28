@@ -13,7 +13,12 @@ import {
 } from 'lucide-react';
 import { useDashboardStore } from '../../store/dashboardStore';
 
-export const SellerSidebar: React.FC = () => {
+interface SellerSidebarProps {
+  onNavigate?: () => void;
+  isMobile?: boolean;
+}
+
+export const SellerSidebar: React.FC<SellerSidebarProps> = ({ onNavigate, isMobile }) => {
   const { currentUser, wasteStreams, offers, shipments } = useDashboardStore();
 
   const missingLabCount = wasteStreams.filter((s) => !s.hasLabReport).length;
@@ -71,7 +76,13 @@ export const SellerSidebar: React.FC = () => {
   ];
 
   return (
-    <aside className="w-[264px] shrink-0 bg-white border-r border-[#E2E4DC] flex flex-col justify-between h-[calc(100vh-4rem)] sticky top-16 shadow-subtle z-20">
+    <aside
+      className={
+        isMobile
+          ? 'w-full flex flex-col justify-between'
+          : 'w-[264px] shrink-0 bg-white border-r border-[#E2E4DC] flex flex-col justify-between h-[calc(100vh-4rem)] sticky top-16 shadow-subtle z-20'
+      }
+    >
       <div className="p-3.5 space-y-3 overflow-y-auto">
         <div className="px-3 pt-1 pb-0.5 flex items-center justify-between text-[11px] font-bold uppercase tracking-wider text-slate-400">
           <span>Seller Capabilities</span>
@@ -84,6 +95,7 @@ export const SellerSidebar: React.FC = () => {
                 key={item.path}
                 to={item.path}
                 end={item.end}
+                onClick={() => onNavigate?.()}
                 className={({ isActive }) =>
                   `flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold transition-all group ${
                     isActive

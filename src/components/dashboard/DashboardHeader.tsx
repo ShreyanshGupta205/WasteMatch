@@ -10,13 +10,15 @@ import {
   AlertTriangle,
   Layers,
   Sparkles,
+  Menu,
+  X,
 } from 'lucide-react';
 import { useDashboardStore, UserRole, SEED_USERS } from '../../store/dashboardStore';
 
 export const DashboardHeader: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { currentUser, switchRole } = useDashboardStore();
+  const { currentUser, switchRole, toggleMobileMenu, isMobileMenuOpen } = useDashboardStore();
 
   const handleRoleSwitch = (newRole: UserRole) => {
     switchRole(newRole);
@@ -26,13 +28,23 @@ export const DashboardHeader: React.FC = () => {
   };
 
   return (
-    <header className="sticky top-0 z-40 h-16 bg-surface border-b border-[#E2E4DC] px-4 sm:px-6 flex items-center justify-between shadow-subtle">
-      {/* Brand Logo & Role Title */}
-      <div className="flex items-center gap-3">
-        <Link to={`/${currentUser.role}`} className="flex items-center gap-2.5 group">
-          <div className="w-9 h-9 rounded-xl bg-[#D1343A] hover:bg-[#A81818] flex items-center justify-center text-white shadow-sm transition-all duration-200">
+    <header className="sticky top-0 z-40 h-16 bg-white border-b border-[#E2E4DC] px-3 sm:px-6 flex items-center justify-between shadow-subtle">
+      {/* Brand Logo & Mobile Hamburger */}
+      <div className="flex items-center gap-2 sm:gap-3">
+        {/* Mobile Hamburger Drawer Trigger */}
+        <button
+          type="button"
+          onClick={toggleMobileMenu}
+          aria-label="Toggle navigation menu"
+          className="lg:hidden p-2 -ml-1 rounded-xl text-slate-700 hover:text-slate-900 hover:bg-slate-100 transition active:scale-95"
+        >
+          {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+        </button>
+
+        <Link to={`/${currentUser.role}`} className="flex items-center gap-2 sm:gap-2.5 group">
+          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-[#D1343A] hover:bg-[#A81818] flex items-center justify-center text-white shadow-sm transition-all duration-200 shrink-0">
             <svg
-              className="w-5 h-5 text-white"
+              className="w-4 h-4 sm:w-5 sm:h-5 text-white"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -51,11 +63,11 @@ export const DashboardHeader: React.FC = () => {
           </div>
           <div>
             <div className="flex items-center gap-1.5">
-              <span className="text-lg font-bold tracking-tight text-[#0B0F19]">
+              <span className="text-base sm:text-lg font-bold tracking-tight text-[#0B0F19]">
                 Waste<span className="text-[#D1343A]">Match</span>
               </span>
               <span
-                className={`text-[10px] uppercase tracking-wider font-bold px-2 py-0.5 rounded ${
+                className={`text-[9px] sm:text-[10px] uppercase tracking-wider font-bold px-1.5 sm:px-2 py-0.5 rounded-full whitespace-nowrap ${
                   currentUser.role === 'seller'
                     ? 'bg-[#DCFCE7] text-[#16A34A] border border-[#16A34A]/20'
                     : currentUser.role === 'buyer'
@@ -64,10 +76,10 @@ export const DashboardHeader: React.FC = () => {
                 }`}
               >
                 {currentUser.role === 'seller'
-                  ? 'Seller Dashboard'
+                  ? 'Seller'
                   : currentUser.role === 'buyer'
-                  ? 'Buyer Dashboard'
-                  : 'Admin Dashboard'}
+                  ? 'Buyer'
+                  : 'Admin'}
               </span>
             </div>
             <p className="text-[10px] text-[#64748B] font-medium leading-none hidden md:block">
@@ -114,8 +126,23 @@ export const DashboardHeader: React.FC = () => {
         </button>
       </div>
 
-      {/* Right: SPCB Status, Home link & User Avatar */}
-      <div className="flex items-center gap-2.5">
+      {/* Right: SPCB Status, Home link, Mobile Quick Switch & User Avatar */}
+      <div className="flex items-center gap-2 sm:gap-2.5">
+        {/* Mobile 1-Tap Role Cycle Button */}
+        <button
+          type="button"
+          onClick={() => {
+            const roles: UserRole[] = ['seller', 'buyer', 'admin'];
+            const nextRole = roles[(roles.indexOf(currentUser.role) + 1) % 3];
+            handleRoleSwitch(nextRole);
+          }}
+          className="lg:hidden inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl text-[11px] font-bold bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-200/80 transition active:scale-95 shadow-sm"
+          title="Tap to toggle next demo role"
+        >
+          <ArrowRightLeft className="w-3 h-3 text-[#D1343A]" />
+          <span className="capitalize">{currentUser.role}</span>
+        </button>
+
         <Link
           to="/"
           className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold text-stone-600 hover:text-stone-900 hover:bg-stone-100 border border-stone-200 transition"

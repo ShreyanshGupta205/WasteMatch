@@ -75,12 +75,12 @@ export const SellerShipments: React.FC = () => {
         </div>
 
         {/* Manual Status Stepper */}
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap sm:flex-nowrap items-center gap-1.5 sm:gap-2">
           {(['Scheduled', 'Picked Up', 'In Transit', 'Delivered'] as const).map((st) => (
             <button
               key={st}
               onClick={() => handleStatusChange(st)}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+              className={`px-2.5 sm:px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
                 selectedShipment.status === st
                   ? 'bg-[#D1343A] text-white shadow-sm'
                   : 'bg-surface-subtle text-[#64748B] hover:text-[#0B0F19] hover:bg-[#E2E4DC]/50'
@@ -93,10 +93,10 @@ export const SellerShipments: React.FC = () => {
       </div>
 
       {/* Tabs */}
-      <div className="flex items-center gap-2 border-b border-[#E2E4DC] pb-1">
+      <div className="flex items-center gap-2 border-b border-[#E2E4DC] pb-1 overflow-x-auto">
         <button
           onClick={() => setActiveTab('manifest')}
-          className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+          className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap shrink-0 cursor-pointer ${
             activeTab === 'manifest'
               ? 'bg-[#1E293B] text-white'
               : 'text-[#64748B] hover:text-[#0B0F19] hover:bg-surface-subtle'
@@ -106,23 +106,23 @@ export const SellerShipments: React.FC = () => {
         </button>
         <button
           onClick={() => setActiveTab('trem')}
-          className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+          className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap shrink-0 cursor-pointer ${
             activeTab === 'trem'
               ? 'bg-[#1E293B] text-white'
               : 'text-[#64748B] hover:text-[#0B0F19] hover:bg-surface-subtle'
           }`}
         >
-          TREM Card (Emergency Response)
+          TREM Card (Emergency)
         </button>
         <button
           onClick={() => setActiveTab('transporters')}
-          className={`px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+          className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap shrink-0 cursor-pointer ${
             activeTab === 'transporters'
               ? 'bg-[#1E293B] text-white'
               : 'text-[#64748B] hover:text-[#0B0F19] hover:bg-surface-subtle'
           }`}
         >
-          Recommended Transporter Directory (Reference)
+          Transporters Directory
         </button>
       </div>
 

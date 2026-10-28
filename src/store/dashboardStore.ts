@@ -190,6 +190,11 @@ interface DashboardState {
   openLabReferralModal: (stream?: WasteStreamItem) => void;
   closeLabReferralModal: () => void;
 
+  // Mobile Navigation Drawer State
+  isMobileMenuOpen: boolean;
+  setMobileMenuOpen: (open: boolean) => void;
+  toggleMobileMenu: () => void;
+
   createWasteStream: (streamData: Partial<WasteStreamItem>) => void;
   uploadLabReport: (streamId: string) => void;
   publishListing: (streamId: string, askingPrice: number) => void;
@@ -488,6 +493,11 @@ export const useDashboardStore = create<DashboardState>((set, get) => ({
     });
   },
   closeLabReferralModal: () => set({ isLabReferralModalOpen: false, selectedStreamForLabReferral: null }),
+
+  // Mobile Navigation Drawer State
+  isMobileMenuOpen: false,
+  setMobileMenuOpen: (open) => set({ isMobileMenuOpen: open }),
+  toggleMobileMenu: () => set((state) => ({ isMobileMenuOpen: !state.isMobileMenuOpen })),
 
   // Actions
   createWasteStream: (streamData) => {
