@@ -39,7 +39,7 @@ export const Footer: React.FC = () => {
             <span>•</span>
             <a href="/admin" className="hover:text-[#D1343A] transition">3. Admin Dashboard</a>
             <span>•</span>
-            <a href="/login" className="hover:text-[#D1343A] transition font-bold text-[#D1343A]">Demo Login</a>
+            <a href="/login" className="hover:text-[#D1343A] transition font-bold text-[#D1343A]">Login</a>
           </div>
           <p className="text-[11px] text-stone-400">
             Compliant with SPCB Hazardous and Other Wastes (M&THM) Rules 2016 • Tripartite Escrow
